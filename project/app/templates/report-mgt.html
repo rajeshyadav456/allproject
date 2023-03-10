@@ -1,0 +1,90 @@
+{% extends 'all.html' %}
+{% block content %}
+{% load static %}
+<div class="app-main" id="main">
+    <!-- begin container-fluid -->
+    <div class="container-fluid">
+        <!--row-->
+        <div class="row">
+            <div class="col-md-12 m-b-30">
+                <!-- begin page title -->
+                <div class="d-block d-lg-flex flex-nowrap align-items-center">
+                    <div class="page-title mr-4 pr-4 border-right">
+                        <h1>Query Listing</h1>
+                    </div>
+                    <div class="breadcrumb-bar align-items-center">
+                        <nav>
+                            <ol class="breadcrumb p-0 m-b-0">
+                                <li class="breadcrumb-item">
+                                    <a href="index.html"><i class="ion ion-ios-paper"></i></a>
+                                </li>
+                                <li class="breadcrumb-item">Query  Listing</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+                <!-- end page title -->
+            </div>
+        </div>
+        <!--row-->
+
+        <!--row-->
+        <div class="row">
+            <div class="col-md-12 col-lg-12">
+                <div class="card card-statistics widget-blog-contant">
+                    <div class="card-body">                                          
+                    <h4></h4>  
+                        
+                    {% for i in contact %} 
+                        <div class="contacted-user-box d-flex justify-content-between">
+                            <!--<img src="/project/media/{{i.User_id.ProfileImage}}" alt="image">-->
+                            <div class="user-info">
+                                <h5 class="mb-0">{{i.User_id.username}}</h5>
+                                <!--<p class="mb-0">Email: <span>{{i.Email}}</span></p>-->
+                                <!--<p class="mb-3">Date: <span>{{i.DateAdded}}</span></p>-->
+                                <!--<p class="mb-3">{{i.Message}}</p>-->
+                                <button type="submit" class="btn btn-primary mt-2"><a href="mailto:someone@example.com">Reply</a></button>
+                            </div>
+                            <!--<div class="delete-query"><a href='/project/delete_UserInquiries/{{i.id}}' class="btn warning-text red-cl">Delete</a>-->
+                                <!-- <button type="/delete_UserInquiries/{{i.id}}" class="btn warning-text red-cl">Delete</button> -->
+                                 <a href='/project/delete_UserInquiries/{{i.id}}' class="btn warning-text red-cl">Delete</a>
+                            </div>
+                            <hr>
+                        {% endfor %}
+                        </div>
+                </div>
+            </div>
+        </div>
+        <!--row-->
+    </div>
+    <!-- end container-fluid -->
+</div>
+<!-- end app-main -->
+</div>
+<!-- end app-container -->
+<!-- begin footer -->
+<footer class="footer">
+<div class="row">
+    <div class="col-12 col-sm-6 text-center text-sm-left">
+        <p>&copy; Copyright 2021. All rights reserved.</p>
+    </div>
+    <div class="col  col-sm-6 ml-sm-auto text-center text-sm-right">
+        <p>Powered By Manzano Tactical</p>
+    </div>
+</div>
+</footer>
+<!-- end footer -->
+</div>
+<!-- end app-wrap -->
+</div>
+<!-- end app -->
+
+{% endblock %}
+    <!-- end app -->
+    <!-- plugins -->
+    <script src="{% static '/js/vendors.js' %}"></script>
+
+    <!-- custom app -->
+    <script src="{% static '/js/app.js' %}"></script>
+</body>
+</html>

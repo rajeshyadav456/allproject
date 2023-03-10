@@ -1,0 +1,55 @@
+# https://flake8.pycqa.org/en/latest/user/configuration.html
+[flake8]
+format = pylint
+
+# only extend the default exclusions which are .svn,CVS,.bzr,.hg,.git,__pycache__,.tox
+extend-exclude =
+# There's no value in checking complied files
+  *.pyc,
+# No need to check Django migrations
+  *migrations*,
+# Skip check for virtual environments, putting standard names we use most
+  venv,.venv,env
+
+# using standard line length
+max-line-length = 100
+
+# According to McCabe, anything that goes beyond 10 is too complex.
+max-complexity = 10
+
+select = C,E,F,W,B,B950
+
+# Error/Violation Codes references
+# https://www.flake8rules.com/
+# https://flake8.pycqa.org/en/latest/user/error-codes.html
+# https://pycodestyle.pycqa.org/en/latest/intro.html#error-codes
+# it's not a bug that we aren't using all of hacking, ignore:
+ignore =
+# continuation line under-indented for hanging indent
+  E121,
+# closing bracket does not match indentation of opening bracket’s line
+  E123,
+# continuation line over-indented for hanging indent
+  E126,
+# line break before binary operator
+  W503,
+# whitespace before ':'
+  E203,
+# E241: multiple spaces after ‘,’
+# E242: tab after ‘,’
+  E24,
+# line too long (This is handle by B950)
+  E501,
+# multiple statements on one line (def)
+  E704,
+# W503 is mutually exclusive with check W504
+# line break after binary operator
+  W504
+# f-string without any placeholders
+  F541
+
+per-file-ignores =
+# F401: module imported but unused
+# F403: 'from module import *' used; unable to detect undefined names
+# E402: module level import not at top of file
+    src/**/__init__.py:F401,F403,E402

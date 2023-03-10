@@ -1,0 +1,6 @@
+Hi {{ user_email }},
+
+{{ otp }} is your otp to Verify Your Email Account, 
+it expires in {{ otp_expires_in_mins }} mins.
+
+Team Soteria

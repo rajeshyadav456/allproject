@@ -1,0 +1,37 @@
+{% extends 'admin/change_form.html' %}
+{% block object-tools %}
+    <style>
+        #invitation_code{
+            background: #79aec8;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 4px;
+            color: #fff;
+            cursor: pointer;
+        }
+        #id_code{
+            margin-right: 8px;
+            margin-bottom: 8px;
+        }
+    </style>
+
+    <script>
+        window.addEventListener("load", function(){
+            const invitation_code_btn = document.getElementById('id_code')
+                .parentElement
+                .appendChild(document.createElement('button'));
+            invitation_code_btn.type = 'button';
+            invitation_code_btn.innerHTML = "Generate random code";
+            invitation_code_btn.id = 'invitation_code';
+            invitation_code_btn.addEventListener("click", generate_invitation_code);
+        });
+        function generate_invitation_code(event, min=8, max=12) {
+            const code_length = Math.floor(Math.random() * (max - min + 5)) + min+2;
+            document.getElementById('id_code').value = Math.random()
+                .toString(36)
+                .substring(2, code_length)
+                .toUpperCase();
+        }
+    </script>
+    {{ block.super }}
+{% endblock object-tools %}

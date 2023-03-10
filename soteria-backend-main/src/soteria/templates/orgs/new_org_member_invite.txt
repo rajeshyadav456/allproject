@@ -1,0 +1,7 @@
+Hi {{ user_email }} 
+Join organization {{ organization.name }} as Role of {{ role }} by clicking this link.
+{{ url }}
+
+This url expires in {{ url_expiry_days }} days.
+
+Team Soteria

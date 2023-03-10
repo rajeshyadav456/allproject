@@ -1,0 +1,10 @@
+Hi {{ user_email }} Again.
+
+Join {{ organization.name }} by visiting the following url:
+
+    {{ url }}
+
+You works as {{ role }}.
+This link will expire in {{ url_expiry_days }} days.
+
+Team Soteria

@@ -1,0 +1,169 @@
+{% extends 'all.html' %}
+{% block content %}
+{% load static %}
+                  <!-- begin app-main -->
+                  <div class="app-main" id="main">
+                    <!-- begin container-fluid -->
+                    <div class="container-fluid">
+                        <!--row-->
+                        <div class="row">
+                            <div class="col-md-12 m-b-30">
+                                <!-- begin page title -->
+                                <div class="d-block d-lg-flex flex-nowrap align-items-center">
+                                    <div class="page-title mr-4 pr-4 border-right">
+                                        <h1>Leaderboard</h1>
+                                    </div>
+                                    <div class="breadcrumb-bar align-items-center">
+                                        <nav>
+                                            <ol class="breadcrumb p-0 m-b-0">
+                                                <li class="breadcrumb-item">
+                                                    <a href=""><i class="fa fa-slideshare"></i></a>
+                                                </li>
+                                                <li class="breadcrumb-item">
+                                                    <a class="text-link" href="">Leaderboard</a>
+                                                </li>
+                                            </ol>
+                                        </nav>
+                                    </div>
+                                </div>
+                                <!-- end page title -->
+                            </div>
+                        </div>
+                        <!--row-->
+
+                        <!---history-tab-->
+                        <div class="row tabs-contant">
+                            <div class="col-xxl-12">
+                                <div class="card card-statistics">
+                                    <div class="card-header">
+                                        <div class="card-heading">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="card-heading mt-3">
+                                                        <h4 class="card-title">Best Shot Times</h4>                                            
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <ul class="filters list-inline float-right">   
+                                                    <form method='POST' id="filterform">{% csrf_token %}
+                                                        <li class="list-inline-item">
+                                                            <small class="m-0 p-0 d-block">Filter By Date</small>
+                                                            <input type="date" name="DateOfRecord" value="{{filters.DateOfRecord}}" onInput="this.form.submit();" class="date_wrap" />
+                                                        </li>                                                     
+                                                        <li class="list-inline-item">    
+                                                            <small class="m-0 p-0">Gun</small>
+                                                            <div class="dropdown drop-wd">
+                                                                <select name="Gun_id" onChange="this.form.submit();" class="custom-select custom-select-sm" id="inputGroupSelect01">
+                                                                    <option selected="" value="">All</option>
+                                                                    {% for i in guntypes %}
+                                                                       <!--<option value="{{i.id}}">{{i.GunName}}</option>-->
+                                                                       <!--{{i.id}} {{filters.Gun_id}}-->
+                                                                       {% if i.id == filters.Gun_id %}
+                                                                       <option selected="" value="{{i.id}}">{{i.GunName}}</option>
+                                                                       {% else %}
+                                                                       <option value="{{i.id}}">{{i.GunName}}</option>
+                                                                       {% endif %}
+                                                                    {% endfor %}
+                                                                    <!--<option value="1">Striker Fired</option>-->
+                                                                    <!--<option value="2">Hammer Fired</option>-->
+                                                                </select>
+                                                            </div>
+                                                        </li>
+                                                        <li class="list-inline-item">    
+                                                            <small class="m-0 p-0">Holster</small>
+                                                            <div class="dropdown drop-wd">
+                                                                <select name="Holster_id" onChange="this.form.submit();" class="custom-select custom-select-sm" id="inputGroupSelect01">
+                                                                    <option selected="" value="">All</option>
+                                                                    {% for i in holstertypes %}
+                                                                       {% if i.id == filters.Holster_id %}
+                                                                       <option selected="" value="{{i.id}}">{{i.HolsterName}}</option>
+                                                                       {% else %}
+                                                                       <option value="{{i.id}}">{{i.HolsterName}}</option>
+                                                                       {% endif %}
+                                                                    {% endfor %}
+                                                                    <!--<option value="3">None</option>-->
+                                                                    <!--<option value="2">Kydex</option>-->
+                                                                    <!--<option value="1">Safariland-L1</option>-->
+                                                                    <!--<option value="4">Safariland-L3</option>-->
+                                                                </select>
+                                                            </div>
+                                                        </li>
+                                                        <li class="list-inline-item">
+                                                            <small class="m-0 p-0 d-block">Username or Name</small>
+                                                            <!--onInput="this.form.submit();"-->
+                                                            <input type="text" name="NameToSearch" id="nameinput" onChange="this.form.submit();" placeholder="Search here..." value="{{filters.NameToSearch}}" class="custom_search">
+                                                            <!--<script type="text/javascript">-->
+                                                            <!--$("#nameinput").keypress(function(event) {-->
+                                                            <!--if (event.which == 13) {-->
+                                                            <!--    event.preventDefault();-->
+                                                            <!--    alert($('#nameinput').val());-->
+                                                            <!--    $("#filterform").submit();-->
+                                                            <!--}-->
+                                                            <!--});-->
+                                                            <!--</script>-->
+                                                        </li>
+                                                        </form>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="day_data mb-3"><h5 class="blue_cl">{{todaydate}}</h5></div>
+                                        {% for i in leaderboard %}
+                                        <div class="log_wrap">
+                                            <div class="d-flex mb-4">
+                                                <div class="sm-img"><img class="img-fluid" src="/project/media/{{i.User_id.ProfileImage}}" alt="user"></div>
+                                                <div class="user_info mt-2 ml-3"><h4 class="mb-0">{{i.User_id.username}}</h4></div>
+                                            </div>
+                                            <ul class="list-inline active_loglist">
+                                                <li class="list-inline-item">Gun :<span class="black_cl">{{i.Gun}}</span></li>
+                                                <li class="list-inline-item">Holster :<span class="black_cl">{{i.Holster}}</span></li>
+                                            </ul>
+                                      
+                                            <div class="timings">
+                                                <ul class="list-inline">
+                                                    <li class="list-inline-item">Draw Time : <span class="black_cl">{{i.DrawTime}}</span></li>
+                                                    <li class="list-inline-item">Shot Time : <span class="black_cl">{{i.ShotTime}}</span></li>
+                                                </ul>                                                            
+                                            </div>
+                                          <!--<hr>-->
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!---history-tab-->
+
+                    </div>
+                    <!-- end container-fluid -->
+                </div>
+                <!-- end app-main -->
+            </div>
+            <!-- end app-container -->
+            <!-- begin footer -->
+            <footer class="footer">
+                <div class="row">
+                    <div class="col-12 col-sm-6 text-center text-sm-left">
+                        <p>&copy; Copyright 2021. All rights reserved.</p>
+                    </div>
+                    <div class="col  col-sm-6 ml-sm-auto text-center text-sm-right">
+                        <p>Powered By Manzano Tactical</p>
+                    </div>
+                </div>
+            </footer>
+            <!-- end footer -->
+        </div>
+        <!-- end app-wrap -->
+    </div>
+    {% endblock %}
+    <!-- end app -->
+
+    <!-- plugins -->
+    <script src="assets/js/vendors.js"></script>
+
+    <!-- custom app -->
+    <script src="assets/js/app.js"></script>
+</body>
+</html>

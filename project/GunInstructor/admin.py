@@ -1,0 +1,22 @@
+# from django.contrib import admin
+# from .models import *
+# # Register your models here.
+# admin.site.register(UserProfiles)
+# admin.site.register(Records)
+# admin.site.register(UserRecords)
+# admin.site.register(Contact)
+# admin.site.register(Devices)
+# admin.site.register(TermAndPolicy)
+# admin.site.register(AboutUs)
+# admin.site.register(PrimaryGunType)
+# admin.site.register(PrimaryHolsterType)
+# admin.site.register(GunInstruction)
+# admin.site.register(Invite)
+# admin.site.register(Subscription)
+# admin.site.register(Contacts)
+# admin.site.register(Subscriptions)
+# admin.site.register(Subscribed)
+# admin.site.register(SubscriptionPlan)
+# admin.site.register(SubscribedUser)
+# admin.site.register(SuspendReason)
+# admin.site.register(SuspendHistory)

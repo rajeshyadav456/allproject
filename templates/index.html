@@ -1,0 +1,623 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<title>Dashboard</title>
+	<link href="{% static '/css/style.css' %}" rel="stylesheet">
+	<link href="{% static '/css/jquery.dataTables.min.css' %}" rel="stylesheet">
+	<link href="{% static '/css/chartist.min.css' %}" rel="stylesheet">
+</head>
+
+<body>
+	<!--**********************************
+        Main wrapper start
+    ***********************************-->
+	<div id="main-wrapper">
+		<!--**********************************
+            Nav header start
+        ***********************************-->
+		<div class="nav-header">
+			<a href="/index/" class="brand-logo">
+				<img src="{% static '/images/logo2.png' %}">
+			</a>
+
+			<div class="nav-control">
+				<div class="hamburger">
+					<span class="line"></span><span class="line"></span><span class="line"></span>
+				</div>
+			</div>
+		</div>
+		<!--**********************************
+            Nav header end
+        ***********************************-->
+
+
+		<!--**********************************
+            Header start
+        ***********************************-->
+		<div class="header">
+			<div class="header-content">
+				<nav class="navbar navbar-expand">
+					<div class="collapse navbar-collapse justify-content-between">
+						<div class="header-left">
+							<div class="dashboard_bar">
+								Dashboard
+							</div>
+						</div>
+
+						<ul class="navbar-nav header-right">
+							<li class="nav-item dropdown header-profile">
+								<a class="nav-link" href="/index/" role="button" data-toggle="dropdown">
+									<img src="{% static '/images/pic1.jpg' %}" width="20" alt="" />
+								</a>
+								<div class="dropdown-menu dropdown-menu-right">
+									<!--<a href="" class="dropdown-item ai-icon">-->
+										<svg id="icon-logout" xmlns="http://www.w3.org/2000/svg" class="text-danger"
+											width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+											stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+											<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+											<polyline points="16 17 21 12 16 7"></polyline>
+											<line x1="21" y1="12" x2="9" y2="12"></line>
+										</svg>
+										<a class="ml-2" href="{% url 'logout' %}">Log out</a>
+										<!--<span class="ml-2">Logout </span>-->
+									<!--</a>-->
+								</div>
+							</li>
+						</ul>
+					</div>
+				</nav>
+			</div>
+		</div>
+
+		<!--**********************************
+            Header end ti-comment-alt
+        ***********************************-->
+
+		<!--**********************************
+            Sidebar start
+        ***********************************-->
+		<!--**********************************
+            Sidebar start
+***********************************-->
+
+		<div class="deznav pt-2">
+			<div class="deznav-scroll">
+				<ul class="metismenu" id="menu">
+					<li><a class="has-arrow ai-icon" href="/index/">
+							<i class="flaticon-381-networking"></i>
+							<span class="nav-text">Dashboard</span>
+						</a>
+					</li>
+					<li><a class="has-arrow ai-icon" href="/user/">
+							<i class="flaticon-381-user-7"></i>
+							<span class="nav-text">User Management</span>
+						</a>
+					</li>
+					<li><a class="has-arrow ai-icon" href="/podcast/">
+							<i class="flaticon-381-television"></i>
+							<span class="nav-text">Podcast Management</span>
+						</a>
+					</li>
+					<li><a class="has-arrow ai-icon" href="/request/">
+							<i class="flaticon-381-controls-1"></i>
+							<span class="nav-text">Request Audio</span>
+						</a>
+					</li>
+					<li><a class="has-arrow ai-icon" href="/report/">
+							<i class="flaticon-381-controls-3"></i>
+							<span class="nav-text">Report Management</span>
+						</a>
+					</li>
+					<li>
+						<a href="/logins/" class="has-arrow ai-icon">
+							<i class="flaticon-381-exit"></i>
+							<span class="nav-text">Logout </span>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+
+
+		<!--**********************************
+            Content body start
+        ***********************************-->
+		<div class="content-body">
+			<!-- row -->
+			<div class="container-fluid">
+
+				<div class="row">
+					<div class="col-md-6 col-lg-6">
+						<div class="widget-stat card bg-primary">
+							<div class="card-body p-4">
+								<div class="media">
+									<span class="mr-3">
+										<i class="flaticon-381-user-7"></i>
+									</span>
+									<div class="media-body text-white text-right">
+										<p class="mb-1">Number of USERS (Subscribe)</p>
+										<h3 class="text-white">{{SUBSCRIBE}}</h3>
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+					<div class="col-md-6 col-lg-6">
+						<div class="widget-stat card bg-danger">
+							<div class="card-body  p-4">
+								<div class="media">
+									<span class="mr-3">
+										<i class="flaticon-381-calendar-1"></i>
+									</span>
+									<div class="media-body text-white text-right">
+										<p class="mb-1">Number of USERS (Register)</p>
+										<h3 class="text-white">{{REGISTER}}</h3>
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+
+
+					<div class="col-xl-6 col-lg-12">
+						<div class="card">
+							<div class="card-header">
+								<h4 class="card-title">NUMBER OF USERS(Subscribe)</h4>
+							</div>
+							<div class="card-body">
+								<div id="smil-animations" class="ct-chart ct-golden-section chartlist-chart">
+									<div class="chartist-tooltip" style="top: 17px; left: 184px;"></div><svg
+										xmlns:ct="http://gionkunz.github.com/chartist-js/ct" width="100%" height="100%"
+										class="ct-chart-line" style="width: 100%; height: 100%;">
+										<g class="ct-grids">
+											<line x1="50" x2="50" y1="15" y2="216.1875" class="ct-grid ct-horizontal"
+												opacity="1"></line>
+											<line x1="80.70833333333333" x2="80.70833333333333" y1="15" y2="216.1875"
+												class="ct-grid ct-horizontal" opacity="1"></line>
+											<line x1="111.41666666666666" x2="111.41666666666666" y1="15" y2="216.1875"
+												class="ct-grid ct-horizontal" opacity="1"></line>
+											<line x1="142.125" x2="142.125" y1="15" y2="216.1875"
+												class="ct-grid ct-horizontal" opacity="1"></line>
+											<line x1="172.83333333333331" x2="172.83333333333331" y1="15" y2="216.1875"
+												class="ct-grid ct-horizontal" opacity="1"></line>
+											<line x1="203.54166666666666" x2="203.54166666666666" y1="15" y2="216.1875"
+												class="ct-grid ct-horizontal" opacity="1"></line>
+											<line x1="234.25" x2="234.25" y1="15" y2="216.1875"
+												class="ct-grid ct-horizontal" opacity="1"></line>
+											<line x1="264.9583333333333" x2="264.9583333333333" y1="15" y2="216.1875"
+												class="ct-grid ct-horizontal" opacity="1"></line>
+											<line x1="295.66666666666663" x2="295.66666666666663" y1="15" y2="216.1875"
+												class="ct-grid ct-horizontal" opacity="1"></line>
+											<line x1="326.375" x2="326.375" y1="15" y2="216.1875"
+												class="ct-grid ct-horizontal" opacity="1"></line>
+											<line x1="357.0833333333333" x2="357.0833333333333" y1="15" y2="216.1875"
+												class="ct-grid ct-horizontal" opacity="1"></line>
+											<line x1="387.79166666666663" x2="387.79166666666663" y1="15" y2="216.1875"
+												class="ct-grid ct-horizontal" opacity="1"></line>
+											<line y1="216.1875" y2="216.1875" x1="50" x2="418.5"
+												class="ct-grid ct-vertical" opacity="1"></line>
+											<line y1="175.95" y2="175.95" x1="50" x2="418.5" class="ct-grid ct-vertical"
+												opacity="1"></line>
+											<line y1="135.7125" y2="135.7125" x1="50" x2="418.5"
+												class="ct-grid ct-vertical" opacity="1"></line>
+											<line y1="95.475" y2="95.475" x1="50" x2="418.5" class="ct-grid ct-vertical"
+												opacity="1"></line>
+											<line y1="55.23750000000001" y2="55.23750000000001" x1="50" x2="418.5"
+												class="ct-grid ct-vertical" opacity="1"></line>
+											<line y1="15" y2="15" x1="50" x2="418.5" class="ct-grid ct-vertical"
+												opacity="1"></line>
+										</g>
+										<g>
+											<g class="ct-series ct-series-a">
+												<path
+													d="M50,23.048C60.236,39.143,70.472,58.457,80.708,71.333C90.944,84.209,101.181,103.523,111.417,103.523C121.653,103.523,131.889,87.428,142.125,87.428C152.361,87.428,162.597,127.665,172.833,135.713C183.069,143.76,193.306,151.808,203.542,151.808C213.778,151.808,224.014,119.618,234.25,119.618C244.486,119.618,254.722,183.998,264.958,183.998C275.194,183.998,285.431,167.903,295.667,167.903C305.903,167.903,316.139,167.903,326.375,167.903C336.611,167.903,346.847,158.961,357.083,151.808C367.319,144.654,377.556,130.348,387.792,119.618"
+													class="ct-line" opacity="1"></path>
+												<line x1="50" y1="23.047500000000014" x2="50" y2="23.047500000000014"
+													class="ct-point" ct:value="12" opacity="1"></line>
+												<line x1="80.70833333333333" y1="71.33250000000001"
+													x2="80.70833333333333" y2="71.33250000000001" class="ct-point"
+													ct:value="9" opacity="1"></line>
+												<line x1="111.41666666666666" y1="103.5225" x2="111.41666666666666"
+													y2="103.5225" class="ct-point" ct:value="7" opacity="1"></line>
+												<line x1="142.125" y1="87.42750000000001" x2="142.125"
+													y2="87.42750000000001" class="ct-point" ct:value="8" opacity="1">
+												</line>
+												<line x1="172.83333333333331" y1="135.7125" x2="172.83333333333331"
+													y2="135.7125" class="ct-point" ct:value="5" opacity="1"></line>
+												<line x1="203.54166666666666" y1="151.8075" x2="203.54166666666666"
+													y2="151.8075" class="ct-point" ct:value="4" opacity="1"></line>
+												<line x1="234.25" y1="119.6175" x2="234.25" y2="119.6175"
+													class="ct-point" ct:value="6" opacity="1"></line>
+												<line x1="264.9583333333333" y1="183.9975" x2="264.9583333333333"
+													y2="183.9975" class="ct-point" ct:value="2" opacity="1"></line>
+												<line x1="295.66666666666663" y1="167.9025" x2="295.66666666666663"
+													y2="167.9025" class="ct-point" ct:value="3" opacity="1"></line>
+												<line x1="326.375" y1="167.9025" x2="326.375" y2="167.9025"
+													class="ct-point" ct:value="3" opacity="1"></line>
+												<line x1="357.0833333333333" y1="151.8075" x2="357.0833333333333"
+													y2="151.8075" class="ct-point" ct:value="4" opacity="1"></line>
+												<line x1="387.79166666666663" y1="119.6175" x2="387.79166666666663"
+													y2="119.6175" class="ct-point" ct:value="6" opacity="1"></line>
+											</g>
+											<g class="ct-series ct-series-b">
+												<path
+													d="M50,151.808C60.236,146.443,70.472,135.713,80.708,135.713C90.944,135.713,101.181,167.903,111.417,167.903C121.653,167.903,131.889,103.523,142.125,103.523C152.361,103.523,162.597,167.903,172.833,167.903C183.069,167.903,193.306,135.713,203.542,135.713C213.778,135.713,224.014,135.713,234.25,135.713C244.486,135.713,254.722,167.903,264.958,167.903C275.194,167.903,285.431,151.808,295.667,151.808C305.903,151.808,316.139,151.808,326.375,151.808C336.611,151.808,346.847,135.713,357.083,135.713C367.319,135.713,377.556,135.713,387.792,135.713"
+													class="ct-line" opacity="1"></path>
+												<line x1="50" y1="151.8075" x2="50" y2="151.8075" class="ct-point"
+													ct:value="4" opacity="1"></line>
+												<line x1="80.70833333333333" y1="135.7125" x2="80.70833333333333"
+													y2="135.7125" class="ct-point" ct:value="5" opacity="1"></line>
+												<line x1="111.41666666666666" y1="167.9025" x2="111.41666666666666"
+													y2="167.9025" class="ct-point" ct:value="3" opacity="1"></line>
+												<line x1="142.125" y1="103.5225" x2="142.125" y2="103.5225"
+													class="ct-point" ct:value="7" opacity="1"></line>
+												<line x1="172.83333333333331" y1="167.9025" x2="172.83333333333331"
+													y2="167.9025" class="ct-point" ct:value="3" opacity="1"></line>
+												<line x1="203.54166666666666" y1="135.7125" x2="203.54166666666666"
+													y2="135.7125" class="ct-point" ct:value="5" opacity="1"></line>
+												<line x1="234.25" y1="135.7125" x2="234.25" y2="135.7125"
+													class="ct-point" ct:value="5" opacity="1"></line>
+												<line x1="264.9583333333333" y1="167.9025" x2="264.9583333333333"
+													y2="167.9025" class="ct-point" ct:value="3" opacity="1"></line>
+												<line x1="295.66666666666663" y1="151.8075" x2="295.66666666666663"
+													y2="151.8075" class="ct-point" ct:value="4" opacity="1"></line>
+												<line x1="326.375" y1="151.8075" x2="326.375" y2="151.8075"
+													class="ct-point" ct:value="4" opacity="1"></line>
+												<line x1="357.0833333333333" y1="135.7125" x2="357.0833333333333"
+													y2="135.7125" class="ct-point" ct:value="5" opacity="1"></line>
+												<line x1="387.79166666666663" y1="135.7125" x2="387.79166666666663"
+													y2="135.7125" class="ct-point" ct:value="5" opacity="1"></line>
+											</g>
+											<g class="ct-series ct-series-c">
+												<path
+													d="M50,135.713C60.236,146.443,70.472,167.903,80.708,167.903C90.944,167.903,101.181,157.173,111.417,151.808C121.653,146.443,131.889,141.078,142.125,135.713C152.361,130.348,162.597,119.618,172.833,119.618C183.069,119.618,193.306,167.903,203.542,167.903C213.778,167.903,224.014,167.903,234.25,167.903C244.486,167.903,254.722,157.173,264.958,151.808C275.194,146.443,285.431,141.078,295.667,135.713C305.903,130.348,316.139,119.618,326.375,119.618C336.611,119.618,346.847,167.903,357.083,167.903C367.319,167.903,377.556,157.173,387.792,151.808"
+													class="ct-line" opacity="0">
+													<animate attributeName="opacity" begin="indefinite" dur="500ms"
+														from="0" to="1" fill="freeze"></animate>
+												</path>
+												<line x1="50" y1="135.7125" x2="50" y2="135.7125" class="ct-point"
+													ct:value="5" opacity="1"></line>
+												<line x1="80.70833333333333" y1="167.9025" x2="80.70833333333333"
+													y2="167.9025" class="ct-point" ct:value="3" opacity="1"></line>
+												<line x1="111.41666666666666" y1="151.8075" x2="111.41666666666666"
+													y2="151.8075" class="ct-point" ct:value="4" opacity="1"></line>
+												<line x1="142.125" y1="135.7125" x2="142.125" y2="135.7125"
+													class="ct-point" ct:value="5" opacity="1"></line>
+												<line x1="172.83333333333331" y1="119.6175" x2="172.83333333333331"
+													y2="119.6175" class="ct-point" ct:value="6" opacity="1"></line>
+												<line x1="203.54166666666666" y1="167.9025" x2="203.54166666666666"
+													y2="167.9025" class="ct-point" ct:value="3" opacity="1"></line>
+												<line x1="234.25" y1="167.9025" x2="234.25" y2="167.9025"
+													class="ct-point" ct:value="3" opacity="1"></line>
+												<line x1="264.9583333333333" y1="151.8075" x2="264.9583333333333"
+													y2="151.8075" class="ct-point" ct:value="4" opacity="1"></line>
+												<line x1="295.66666666666663" y1="135.7125" x2="295.66666666666663"
+													y2="135.7125" class="ct-point" ct:value="5" opacity="1"></line>
+												<line x1="326.375" y1="119.6175" x2="326.375" y2="119.6175"
+													class="ct-point" ct:value="6" opacity="1"></line>
+												<line x1="357.0833333333333" y1="167.9025" x2="357.0833333333333"
+													y2="167.9025" class="ct-point" ct:value="3" opacity="1"></line>
+												<line x1="387.79166666666663" y1="151.8075" x2="387.79166666666663"
+													y2="151.8075" class="ct-point" ct:value="4" opacity="1"></line>
+											</g>
+											<g class="ct-series ct-series-d">
+												<path
+													d="M50,167.903C60.236,162.538,70.472,157.173,80.708,151.808C90.944,146.443,101.181,141.078,111.417,135.713C121.653,130.348,131.889,124.983,142.125,119.618C152.361,114.253,162.597,103.523,172.833,103.523C183.069,103.523,193.306,112.464,203.542,119.618C213.778,126.771,224.014,151.808,234.25,151.808C244.486,151.808,254.722,141.078,264.958,135.713C275.194,130.348,285.431,124.983,295.667,119.618C305.903,114.253,316.139,103.523,326.375,103.523C336.611,103.523,346.847,111.57,357.083,119.618C367.319,127.665,377.556,151.808,387.792,167.903"
+													class="ct-line" opacity="0">
+													<animate attributeName="opacity" begin="indefinite" dur="500ms"
+														from="0" to="1" fill="freeze"></animate>
+												</path>
+												<line x1="50" y1="167.9025" x2="50" y2="167.9025" class="ct-point"
+													ct:value="3" opacity="1"></line>
+												<line x1="80.70833333333333" y1="151.8075" x2="80.70833333333333"
+													y2="151.8075" class="ct-point" ct:value="4" opacity="1"></line>
+												<line x1="111.41666666666666" y1="135.7125" x2="111.41666666666666"
+													y2="135.7125" class="ct-point" ct:value="5" opacity="1"></line>
+												<line x1="142.125" y1="119.6175" x2="142.125" y2="119.6175"
+													class="ct-point" ct:value="6" opacity="1"></line>
+												<line x1="172.83333333333331" y1="103.5225" x2="172.83333333333331"
+													y2="103.5225" class="ct-point" ct:value="7" opacity="1"></line>
+												<line x1="203.54166666666666" y1="119.6175" x2="203.54166666666666"
+													y2="119.6175" class="ct-point" ct:value="6" opacity="1"></line>
+												<line x1="234.25" y1="151.8075" x2="234.25" y2="151.8075"
+													class="ct-point" ct:value="4" opacity="1"></line>
+												<line x1="264.9583333333333" y1="135.7125" x2="264.9583333333333"
+													y2="135.7125" class="ct-point" ct:value="5" opacity="1"></line>
+												<line x1="295.66666666666663" y1="119.6175" x2="295.66666666666663"
+													y2="119.6175" class="ct-point" ct:value="6" opacity="1"></line>
+												<line x1="326.375" y1="103.5225" x2="326.375" y2="103.5225"
+													class="ct-point" ct:value="7" opacity="1"></line>
+												<line x1="347.0833333333333" y1="119.6175" x2="347.0833333333333"
+													y2="119.6175" class="ct-point" ct:value="6" opacity="0">
+													<animate attributeName="x1" begin="indefinite" dur="500ms"
+														from="347.0833333333333" to="357.0833333333333"
+														calcMode="spline" keySplines="0.165 0.84 0.44 1" keyTimes="0;1"
+														fill="freeze"></animate>
+													<animate attributeName="x2" begin="indefinite" dur="500ms"
+														from="347.0833333333333" to="357.0833333333333"
+														calcMode="spline" keySplines="0.165 0.84 0.44 1" keyTimes="0;1"
+														fill="freeze"></animate>
+													<animate attributeName="opacity" begin="indefinite" dur="500ms"
+														from="0" to="1" calcMode="spline" keySplines="0.165 0.84 0.44 1"
+														keyTimes="0;1" fill="freeze"></animate>
+												</line>
+												<line x1="377.79166666666663" y1="167.9025" x2="377.79166666666663"
+													y2="167.9025" class="ct-point" ct:value="3" opacity="0">
+													<animate attributeName="x1" begin="indefinite" dur="500ms"
+														from="377.79166666666663" to="387.79166666666663"
+														calcMode="spline" keySplines="0.165 0.84 0.44 1" keyTimes="0;1"
+														fill="freeze"></animate>
+													<animate attributeName="x2" begin="indefinite" dur="500ms"
+														from="377.79166666666663" to="387.79166666666663"
+														calcMode="spline" keySplines="0.165 0.84 0.44 1" keyTimes="0;1"
+														fill="freeze"></animate>
+													<animate attributeName="opacity" begin="indefinite" dur="500ms"
+														from="0" to="1" calcMode="spline" keySplines="0.165 0.84 0.44 1"
+														keyTimes="0;1" fill="freeze"></animate>
+												</line>
+											</g>
+										</g>
+										<g class="ct-labels">
+											<foreignObject style="overflow: visible;" x="50" y="221.1875"
+												width="30.708333333333332" height="20"><span
+													class="ct-label ct-horizontal ct-end"
+													xmlns="http://www.w3.org/2000/xmlns/"
+													style="width: 31px; height: 20px;">1</span></foreignObject>
+											<foreignObject style="overflow: visible;" x="80.70833333333333" y="221.1875"
+												width="30.708333333333332" height="20"><span
+													class="ct-label ct-horizontal ct-end"
+													xmlns="http://www.w3.org/2000/xmlns/"
+													style="width: 31px; height: 20px;">2</span></foreignObject>
+											<foreignObject style="overflow: visible;" x="111.41666666666666"
+												y="221.1875" width="30.708333333333336" height="20"><span
+													class="ct-label ct-horizontal ct-end"
+													xmlns="http://www.w3.org/2000/xmlns/"
+													style="width: 31px; height: 20px;">3</span></foreignObject>
+											<foreignObject style="overflow: visible;" x="142.125" y="221.1875"
+												width="30.70833333333333" height="20"><span
+													class="ct-label ct-horizontal ct-end"
+													xmlns="http://www.w3.org/2000/xmlns/"
+													style="width: 31px; height: 20px;">4</span></foreignObject>
+											<foreignObject style="overflow: visible;" x="172.83333333333331"
+												y="221.1875" width="30.70833333333333" height="20"><span
+													class="ct-label ct-horizontal ct-end"
+													xmlns="http://www.w3.org/2000/xmlns/"
+													style="width: 31px; height: 20px;">5</span></foreignObject>
+											<foreignObject style="overflow: visible;" x="203.54166666666666"
+												y="221.1875" width="30.708333333333343" height="20"><span
+													class="ct-label ct-horizontal ct-end"
+													xmlns="http://www.w3.org/2000/xmlns/"
+													style="width: 31px; height: 20px;">6</span></foreignObject>
+											<foreignObject style="overflow: visible;" x="234.25" y="221.1875"
+												width="30.708333333333314" height="20"><span
+													class="ct-label ct-horizontal ct-end"
+													xmlns="http://www.w3.org/2000/xmlns/"
+													style="width: 31px; height: 20px;">7</span></foreignObject>
+											<foreignObject style="overflow: visible;" x="264.9583333333333" y="221.1875"
+												width="30.708333333333343" height="20"><span
+													class="ct-label ct-horizontal ct-end"
+													xmlns="http://www.w3.org/2000/xmlns/"
+													style="width: 31px; height: 20px;">8</span></foreignObject>
+											<foreignObject style="overflow: visible;" x="295.66666666666663"
+												y="221.1875" width="30.708333333333343" height="20"><span
+													class="ct-label ct-horizontal ct-end"
+													xmlns="http://www.w3.org/2000/xmlns/"
+													style="width: 31px; height: 20px;">9</span></foreignObject>
+											<foreignObject style="overflow: visible;" x="326.375" y="221.1875"
+												width="30.708333333333314" height="20"><span
+													class="ct-label ct-horizontal ct-end"
+													xmlns="http://www.w3.org/2000/xmlns/"
+													style="width: 31px; height: 20px;">10</span></foreignObject>
+											<foreignObject style="overflow: visible;" x="357.0833333333333" y="221.1875"
+												width="30.708333333333314" height="20"><span
+													class="ct-label ct-horizontal ct-end"
+													xmlns="http://www.w3.org/2000/xmlns/"
+													style="width: 31px; height: 20px;">11</span></foreignObject>
+											<foreignObject style="overflow: visible;" x="387.79166666666663"
+												y="221.1875" width="30.70833333333337" height="20"><span
+													class="ct-label ct-horizontal ct-end"
+													xmlns="http://www.w3.org/2000/xmlns/"
+													style="width: 31px; height: 20px;">12</span></foreignObject>
+											<foreignObject style="overflow: visible;" y="175.95" x="10" height="40.2375"
+												width="30"><span class="ct-label ct-vertical ct-start"
+													xmlns="http://www.w3.org/2000/xmlns/"
+													style="height: 40px; width: 30px;">0</span></foreignObject>
+											<foreignObject style="overflow: visible;" y="135.71249999999998" x="10"
+												height="40.2375" width="30"><span class="ct-label ct-vertical ct-start"
+													xmlns="http://www.w3.org/2000/xmlns/"
+													style="height: 40px; width: 30px;">2.5</span></foreignObject>
+											<foreignObject style="overflow: visible;" y="95.475" x="10"
+												height="40.23750000000001" width="30"><span
+													class="ct-label ct-vertical ct-start"
+													xmlns="http://www.w3.org/2000/xmlns/"
+													style="height: 40px; width: 30px;">5</span></foreignObject>
+											<foreignObject style="overflow: visible;" y="55.23750000000001" x="10"
+												height="40.23749999999998" width="30"><span
+													class="ct-label ct-vertical ct-start"
+													xmlns="http://www.w3.org/2000/xmlns/"
+													style="height: 40px; width: 30px;">7.5</span></foreignObject>
+											<foreignObject style="overflow: visible;" y="15" x="10"
+												height="40.23750000000001" width="30"><span
+													class="ct-label ct-vertical ct-start"
+													xmlns="http://www.w3.org/2000/xmlns/"
+													style="height: 40px; width: 30px;">10</span></foreignObject>
+											<foreignObject style="overflow: visible;" y="-15" x="10" height="30"
+												width="30"><span class="ct-label ct-vertical ct-start"
+													xmlns="http://www.w3.org/2000/xmlns/"
+													style="height: 30px; width: 30px;">12.5</span></foreignObject>
+										</g>
+									</svg>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xl-6 col-lg-12">
+						<div class="card">
+							<div class="card-header">
+								<h4 class="card-title">NUMBER OF USERS (Register)</h4>
+							</div>
+							<div class="card-body">
+								<div id="simple-line-chart" class="ct-chart ct-golden-section chartlist-chart">
+									<div class="chartist-tooltip"></div><svg
+										xmlns:ct="http://gionkunz.github.com/chartist-js/ct" width="100%" height="100%"
+										class="ct-chart-line" style="width: 100%; height: 100%;">
+										<g class="ct-grids">
+											<line x1="50" x2="50" y1="15" y2="216.1875" class="ct-grid ct-horizontal">
+											</line>
+											<line x1="135.875" x2="135.875" y1="15" y2="216.1875"
+												class="ct-grid ct-horizontal"></line>
+											<line x1="221.75" x2="221.75" y1="15" y2="216.1875"
+												class="ct-grid ct-horizontal"></line>
+											<line x1="307.625" x2="307.625" y1="15" y2="216.1875"
+												class="ct-grid ct-horizontal"></line>
+											<line x1="393.5" x2="393.5" y1="15" y2="216.1875"
+												class="ct-grid ct-horizontal"></line>
+											<line y1="216.1875" y2="216.1875" x1="50" x2="393.5"
+												class="ct-grid ct-vertical"></line>
+											<line y1="175.95" y2="175.95" x1="50" x2="393.5"
+												class="ct-grid ct-vertical"></line>
+											<line y1="135.7125" y2="135.7125" x1="50" x2="393.5"
+												class="ct-grid ct-vertical"></line>
+											<line y1="95.475" y2="95.475" x1="50" x2="393.5"
+												class="ct-grid ct-vertical"></line>
+											<line y1="55.23750000000001" y2="55.23750000000001" x1="50" x2="393.5"
+												class="ct-grid ct-vertical"></line>
+											<line y1="15" y2="15" x1="50" x2="393.5" class="ct-grid ct-vertical"></line>
+										</g>
+										<g>
+											<g class="ct-series ct-series-a">
+												<path
+													d="M50,23.048C78.625,39.143,107.25,58.457,135.875,71.333C164.5,84.209,193.125,103.523,221.75,103.523C250.375,103.523,279,87.428,307.625,87.428C336.25,87.428,364.875,119.618,393.5,135.713"
+													class="ct-line"></path>
+												<line x1="50" y1="23.047500000000014" x2="50.01" y2="23.047500000000014"
+													class="ct-point" ct:value="12"></line>
+												<line x1="135.875" y1="71.33250000000001" x2="135.885"
+													y2="71.33250000000001" class="ct-point" ct:value="9"></line>
+												<line x1="221.75" y1="103.5225" x2="221.76" y2="103.5225"
+													class="ct-point" ct:value="7"></line>
+												<line x1="307.625" y1="87.42750000000001" x2="307.635"
+													y2="87.42750000000001" class="ct-point" ct:value="8"></line>
+												<line x1="393.5" y1="135.7125" x2="393.51" y2="135.7125"
+													class="ct-point" ct:value="5"></line>
+											</g>
+											<g class="ct-series ct-series-b">
+												<path
+													d="M50,183.998C78.625,189.363,107.25,200.093,135.875,200.093C164.5,200.093,193.125,175.503,221.75,159.855C250.375,144.207,279,103.523,307.625,103.523C336.25,103.523,364.875,146.443,393.5,167.903"
+													class="ct-line"></path>
+												<line x1="50" y1="183.9975" x2="50.01" y2="183.9975" class="ct-point"
+													ct:value="2"></line>
+												<line x1="135.875" y1="200.0925" x2="135.885" y2="200.0925"
+													class="ct-point" ct:value="1"></line>
+												<line x1="221.75" y1="159.855" x2="221.76" y2="159.855" class="ct-point"
+													ct:value="3.5"></line>
+												<line x1="307.625" y1="103.5225" x2="307.635" y2="103.5225"
+													class="ct-point" ct:value="7"></line>
+												<line x1="393.5" y1="167.9025" x2="393.51" y2="167.9025"
+													class="ct-point" ct:value="3"></line>
+											</g>
+											<g class="ct-series ct-series-c">
+												<path
+													d="M50,200.093C78.625,189.363,107.25,175.056,135.875,167.903C164.5,160.749,193.125,157.173,221.75,151.808C250.375,146.443,279,141.078,307.625,135.713C336.25,130.348,364.875,124.983,393.5,119.618"
+													class="ct-line"></path>
+												<line x1="50" y1="200.0925" x2="50.01" y2="200.0925" class="ct-point"
+													ct:value="1"></line>
+												<line x1="135.875" y1="167.9025" x2="135.885" y2="167.9025"
+													class="ct-point" ct:value="3"></line>
+												<line x1="221.75" y1="151.8075" x2="221.76" y2="151.8075"
+													class="ct-point" ct:value="4"></line>
+												<line x1="307.625" y1="135.7125" x2="307.635" y2="135.7125"
+													class="ct-point" ct:value="5"></line>
+												<line x1="393.5" y1="119.6175" x2="393.51" y2="119.6175"
+													class="ct-point" ct:value="6"></line>
+											</g>
+										</g>
+										<g class="ct-labels">
+											<foreignObject style="overflow: visible;" x="50" y="221.1875" width="85.875"
+												height="20"><span class="ct-label ct-horizontal ct-end"
+													xmlns="http://www.w3.org/2000/xmlns/"
+													style="width: 86px; height: 20px;">Monday</span></foreignObject>
+											<foreignObject style="overflow: visible;" x="135.875" y="221.1875"
+												width="85.875" height="20"><span class="ct-label ct-horizontal ct-end"
+													xmlns="http://www.w3.org/2000/xmlns/"
+													style="width: 86px; height: 20px;">Tuesday</span></foreignObject>
+											<foreignObject style="overflow: visible;" x="221.75" y="221.1875"
+												width="85.875" height="20"><span class="ct-label ct-horizontal ct-end"
+													xmlns="http://www.w3.org/2000/xmlns/"
+													style="width: 86px; height: 20px;">Wednesday</span></foreignObject>
+											<foreignObject style="overflow: visible;" x="307.625" y="221.1875"
+												width="85.875" height="20"><span class="ct-label ct-horizontal ct-end"
+													xmlns="http://www.w3.org/2000/xmlns/"
+													style="width: 86px; height: 20px;">Thursday</span></foreignObject>
+											<foreignObject style="overflow: visible;" x="393.5" y="221.1875" width="30"
+												height="20"><span class="ct-label ct-horizontal ct-end"
+													xmlns="http://www.w3.org/2000/xmlns/"
+													style="width: 30px; height: 20px;">Friday</span></foreignObject>
+											<foreignObject style="overflow: visible;" y="175.95" x="10" height="40.2375"
+												width="30"><span class="ct-label ct-vertical ct-start"
+													xmlns="http://www.w3.org/2000/xmlns/"
+													style="height: 40px; width: 30px;">0</span></foreignObject>
+											<foreignObject style="overflow: visible;" y="135.71249999999998" x="10"
+												height="40.2375" width="30"><span class="ct-label ct-vertical ct-start"
+													xmlns="http://www.w3.org/2000/xmlns/"
+													style="height: 40px; width: 30px;">2.5</span></foreignObject>
+											<foreignObject style="overflow: visible;" y="95.475" x="10"
+												height="40.23750000000001" width="30"><span
+													class="ct-label ct-vertical ct-start"
+													xmlns="http://www.w3.org/2000/xmlns/"
+													style="height: 40px; width: 30px;">5</span></foreignObject>
+											<foreignObject style="overflow: visible;" y="55.23750000000001" x="10"
+												height="40.23749999999998" width="30"><span
+													class="ct-label ct-vertical ct-start"
+													xmlns="http://www.w3.org/2000/xmlns/"
+													style="height: 40px; width: 30px;">7.5</span></foreignObject>
+											<foreignObject style="overflow: visible;" y="15" x="10"
+												height="40.23750000000001" width="30"><span
+													class="ct-label ct-vertical ct-start"
+													xmlns="http://www.w3.org/2000/xmlns/"
+													style="height: 40px; width: 30px;">10</span></foreignObject>
+											<foreignObject style="overflow: visible;" y="-15" x="10" height="30"
+												width="30"><span class="ct-label ct-vertical ct-start"
+													xmlns="http://www.w3.org/2000/xmlns/"
+													style="height: 30px; width: 30px;">12.5</span></foreignObject>
+										</g>
+									</svg>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+
+		</div>
+		<!--**********************************
+            Content body end
+        ***********************************-->
+		<!--**********************************
+            Footer start
+        ***********************************-->
+		<div class="footer">
+			<div class="copyright">
+				<p>Copyright © 2021.</p>
+			</div>
+		</div>
+	</div>
+	<script src="{% static '/js/global.min.js' %}" type="text/javascript"></script>
+	<script src="{% static '/js/jquery.dataTables.min.js' %}" type="text/javascript"></script>
+	<script src="{% static '/js/datatables.init.js' %}" type="text/javascript"></script>
+	<script src="{% static '/js/dashboard-1.js' %}" type="text/javascript"></script>
+	<script src="{% static '/js/custom.min.js' %}" type="text/javascript"></script>
+	<script src="{% static '/js/deznav-init.js' %}" type="text/javascript"></script>
+	<script src="{% static '/js/demo.js' %}" type="text/javascript"></script>
+	<script src="{% static '/js/chartist.min.js' %}" type="text/javascript"></script>
+</body>
+
+</html>

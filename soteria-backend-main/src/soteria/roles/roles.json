@@ -1,0 +1,93 @@
+[
+    {
+      "role_id": "client",
+      "name": "Client",
+      "short_desc": "Can View Dashboard And Reports.",
+      "can_access_dashboard": true,
+      "permissions": [
+        "view_report"
+      ]
+    },
+    {
+        "role_id": "executive",
+        "name": "Executive",
+        "short_desc": "Can Manage Jobs.",
+        "can_access_dashboard": true,
+        "permissions": [
+          "add_job",
+          "view_job",
+          "change_job",
+          "delete_job",
+          "view_location",
+          "view_asset",
+          "view_form",
+          "view_organizationmember"
+        ]
+    },
+    {
+        "role_id": "supervisor",
+        "name": "Supervisor",
+        "short_desc": "Gain Full Access for Location.",
+        "can_access_dashboard": true,
+        "permissions": [
+          "add_job",
+          "view_job",
+          "change_job",
+          "delete_job",
+          "add_asset",
+          "view_asset",
+          "delete_asset",
+          "change_asset",
+          "add_form",
+          "view_form",
+          "delete_form",
+          "change_form",
+          "add_organizationmember",
+          "change_organizationmember",
+          "delete_organizationmember",
+          "view_organizationmember",
+          "view_report"
+        ]
+        
+    },
+    {
+      "role_id": "staff",
+      "name": "Staff",
+      "short_desc": "Staff Application user",
+      "can_access_dashboard": false,
+      "permissions": [
+      ]
+      
+  },
+    {
+      "role_id": "leader",
+      "name": "Leader",
+      "short_desc": "Gain Full Access for Organization.",
+      "is_global": true,
+      "can_access_dashboard": true,
+      "permissions": [
+        "add_asset",
+        "view_asset",
+        "delete_asset",
+        "change_asset",
+        "add_form",
+        "view_form",
+        "delete_form",
+        "change_form",
+        "add_job",
+        "view_job",
+        "change_job",
+        "delete_job",
+        "view_location",
+        "add_location",
+        "change_location",
+        "delete_location",
+        "view_organizationmember",
+        "change_organizationmember",
+        "add_organizationmember",
+        "delete_organizationmember",
+        "view_report"
+      ]
+    }
+
+]
